@@ -1,0 +1,89 @@
+﻿@model RepertorieViewModel
+@{
+    ViewData["Title"] = "KOB Repertorie list manager";
+}
+<div class="panel panel-default todo-panel">
+    @*<div class="panel-heading">@ViewData["Title"]</div>*@
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <td>Ordre</td>
+                <td>&#x2714;</td>
+                <td>Num Cançó</td>
+                <td>Comentari</td>
+                <td>&#8593;</td>
+                <td>&#8595;</td>
+                <td>
+                    <form asp-action="RemoveAllItems" method="POST">
+                        <input type="button" class="btn-link removeAllItems" value="&#215;">
+                    </form>
+                </td>
+            </tr>
+        </thead>
+        @foreach (var item in Model.RepertorieList)
+        {
+            <tr>
+                <td>@item.Index</td>
+                <td>
+                    <form asp-action="MarkDone" method="POST">
+                        <input type="checkbox" class="done-checkbox" checked="@item.IsCurrent">
+                        <input type="hidden" name="id" value="@item.Id">
+                    </form>
+                </td>
+                <td>@item.SongId</td>
+                <td>@item.Comments</td>
+                <td>
+                    <form asp-action="MoveUp" method="POST">
+                        <input type="button" class="btn-link moveUp" value="&#8593;">
+                        <input type="hidden" name="id" value="@item.Index">
+                    </form>
+            
+                </td>
+                <td>
+                    <form asp-action="MoveDown" method="POST">
+                        <input type="button" class="btn-link moveDown" value="&#8595;">
+                        <input type="hidden" name="id" value="@item.Index">
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="RemoveItem" method="POST">
+                        <input type="button" class="btn-link removeItem" value="&#215;">
+                        <input type="hidden" name="id" value="@item.Id">
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="panel-footer add-item-form">
+        @await Html.PartialAsync("ControlsPartial", new Repertorie())
+    </div>
+</div>
+@*@model IEnumerable<KOBWebApplication.Models.RepertorieViewModel>
+
+    @{
+        ViewData["Title"] = "View";
+    }
+
+    <h1>View</h1>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
